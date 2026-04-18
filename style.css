@@ -376,6 +376,10 @@ footer p {
     font-size: 0.9rem;
 }
 
+.section.about-section {
+    display: none;
+}
+
 @keyframes fadeInUp {
     from {
         opacity: 0;
