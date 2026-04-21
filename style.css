@@ -2,7 +2,7 @@
     --bg-color: #050505;
     --text-color: #f0f0f0;
     --text-muted: #a0a0a0;
-    --accent: #e85d04;
+    --accent: rgb(191, 183, 0);
     --glass-bg: rgba(20, 20, 20, 0.4);
     --glass-border: rgba(255, 255, 255, 0.08);
     --font-main: 'Inter', sans-serif;
@@ -87,10 +87,43 @@ p {
     align-items: center;
 }
 
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.logo-img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--glass-border);
+}
+
 .logo h1 {
     font-size: 1.5rem;
     letter-spacing: 2px;
     color: #fff;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    background: transparent;
+    border: none;
+    z-index: 1001;
+}
+
+.hamburger .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: #fff;
+    border-radius: 3px;
 }
 
 .nav-links {
@@ -145,7 +178,7 @@ p {
 }
 
 #hero-video.ready {
-    opacity: 0.6;
+    opacity: 1;
 }
 
 .hero-content {
@@ -181,7 +214,7 @@ p {
     flex-direction: column;
     align-items: center;
     gap: 1rem;
-    animation: fadeInUp 1s ease 1s both;
+    animation: fadeInUpScroll 1s ease 1s both;
 }
 
 .scroll-indicator span {
@@ -392,6 +425,18 @@ footer p {
     }
 }
 
+@keyframes fadeInUpScroll {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+}
+
 @keyframes scroll {
     0% {
         transform: translate(-50%, 0);
@@ -421,12 +466,56 @@ footer p {
 }
 
 @media (max-width: 900px) {
+    .hero {
+        height: 200vh;
+    }
+
     .content-asymmetric {
         grid-template-columns: 1fr;
     }
 
+    .hamburger {
+        display: block;
+    }
+
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
     .nav-links {
-        display: none;
+        position: fixed;
+        left: -100%;
+        top: 0;
+        flex-direction: column;
+        background: rgba(5, 5, 5, 0.95);
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+        width: 100%;
+        height: 100vh;
+        text-align: center;
+        transition: 0.3s;
+        justify-content: center;
+        z-index: 1000;
+    }
+
+    .nav-links li {
+        margin: 1.5rem 0;
+    }
+
+    .nav-links a {
+        font-size: 1.5rem;
+    }
+
+    .nav-links.active {
+        left: 0;
     }
 
     #hero-video {

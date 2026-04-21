@@ -26,6 +26,14 @@ document.addEventListener("DOMContentLoaded", () => {
         updateVideoTime(true);
     }
 
+    // Caso a propriedade de vídeo já esteja no state >= 2, mostra logo
+    if (video.readyState >= 2) {
+        if (!isVideoReady) {
+            isVideoReady = true;
+            video.classList.add("ready");
+        }
+    }
+
     // Função de cálculo de tempo baseado no scroll
     function updateVideoTime(isInitial = false) {
         if (isNaN(duration) || duration === 0) return;
@@ -68,4 +76,23 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Fix: Para garantir que o vídeo esteja carregado (safari/iOS workaround)
     video.load();
+
+    // Menu Hamburguer
+    const hamburger = document.querySelector(".hamburger");
+    const navLinks = document.querySelector(".nav-links");
+    const navItems = document.querySelectorAll(".nav-links li a");
+
+    if (hamburger && navLinks) {
+        hamburger.addEventListener("click", () => {
+            hamburger.classList.toggle("active");
+            navLinks.classList.toggle("active");
+        });
+
+        navItems.forEach(item => {
+            item.addEventListener("click", () => {
+                hamburger.classList.remove("active");
+                navLinks.classList.remove("active");
+            });
+        });
+    }
 });
